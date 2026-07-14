@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 8px 30px -4px rgba(0, 0, 0, 0.08);
+  --shadow-large: 0 16px 40px -8px rgba(0, 0, 0, 0.12);
+
+  --animate-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --animate-slow: 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root {
+  --background: hsl(30 18% 97.5%); /* Calming warm off-white */
+  --foreground: hsl(210 20% 12%); /* Slate Dark */
+  
+  --card: hsl(30 20% 99%);
+  --card-foreground: hsl(210 20% 12%);
+  
+  --popover: hsl(30 20% 99%);
+  --popover-foreground: hsl(210 20% 12%);
+  
+  --primary: hsl(143 22% 35%); /* Calming Sage Green */
+  --primary-foreground: hsl(30 18% 97.5%);
+  
+  --secondary: hsl(199 65% 46%); /* Healing Sky Blue */
+  --secondary-foreground: hsl(0 0% 100%);
+  
+  --muted: hsl(30 12% 93%);
+  --muted-foreground: hsl(210 12% 45%);
+  
+  --accent: hsl(143 15% 91%);
+  --accent-foreground: hsl(143 25% 20%);
+  
+  --destructive: hsl(0 72% 51%); /* Soft Warning/Danger Red */
+  --destructive-foreground: hsl(0 0% 100%);
+  
+  --border: hsl(30 12% 89%);
+  --input: hsl(30 12% 89%);
+  --ring: hsl(143 22% 35%);
+  
+  --radius: 12px;
+}
+
+.dark {
+  --background: hsl(143 10% 8.5%); /* Very deep dark green-slate */
+  --foreground: hsl(143 15% 92%); /* Warm soft sage off-white */
+  
+  --card: hsl(143 8% 12%);
+  --card-foreground: hsl(143 15% 92%);
+  
+  --popover: hsl(143 8% 12%);
+  --popover-foreground: hsl(143 15% 92%);
+  
+  --primary: hsl(143 24% 65%); /* Soft light Sage Green */
+  --primary-foreground: hsl(143 12% 10%);
+  
+  --secondary: hsl(199 65% 65%); /* Soft light Sky Blue */
+  --secondary-foreground: hsl(199 12% 10%);
+  
+  --muted: hsl(143 8% 15%);
+  --muted-foreground: hsl(143 6% 65%);
+  
+  --accent: hsl(143 8% 16%);
+  --accent-foreground: hsl(143 15% 92%);
+  
+  --destructive: hsl(0 62% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  
+  --border: hsl(143 8% 16%);
+  --input: hsl(143 8% 16%);
+  --ring: hsl(143 24% 65%);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+  }
+  html {
+    @apply font-sans scroll-smooth;
+  }
+}

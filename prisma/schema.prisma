@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                 String           @id // Maps to Supabase auth user ID
+  email              String           @unique
+  name               String?
+  avatarUrl          String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  
+  dailyWaterGoalMl   Int              @default(2000)
+  dailyFocusGoalSec  Int              @default(7200) // 2 hours
+  
+  playlists          Playlist[]
+  sessions           StudySession[]
+  reminderLogs       ReminderLog[]
+  progressLogs       UserProgress[]
+  sharedPlaylists    SharedPlaylist[]
+  
+  friends            Friendship[]     @relation("UserFriends")
+  friendOf           Friendship[]     @relation("UserFriendOf")
+}
+
+model Friendship {
+  id        String   @id @default(uuid())
+  userId    String
+  friendId  String
+  status    String   // PENDING, ACCEPTED, BLOCKED
+  createdAt DateTime @default(now())
+  
+  user      User     @relation("UserFriends", fields: [userId], references: [id], onDelete: Cascade)
+  friend    User     @relation("UserFriendOf", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+}
+
+model Playlist {
+  id          String           @id @default(uuid())
+  title       String
+  description String?
+  youtubeId   String?          // If imported from YouTube
+  creatorId   String
+  isShared    Boolean          @default(false)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  
+  creator     User             @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  videos      PlaylistVideo[]
+  sharedWith  SharedPlaylist[]
+}
+
+model Video {
+  id           String          @id @default(uuid())
+  title        String
+  description  String?
+  youtubeId    String          @unique
+  duration     Int             // duration in seconds
+  thumbnailUrl String?
+  createdAt    DateTime        @default(now())
+  
+  playlists    PlaylistVideo[]
+  sessions     StudySession[]
+}
+
+model PlaylistVideo {
+  id         String   @id @default(uuid())
+  playlistId String
+  videoId    String
+  position   Int
+  createdAt  DateTime @default(now())
+  
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  video      Video    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, videoId])
+}
+
+model SharedPlaylist {
+  id         String   @id @default(uuid())
+  playlistId String
+  userId     String
+  createdAt  DateTime @default(now())
+  
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([playlistId, userId])
+}
+
+model StudySession {
+  id           String    @id @default(uuid())
+  userId       String
+  videoId      String?
+  duration     Int       // duration in seconds
+  focusScore   Float?    // optional focus score percentage (e.g. 0-100)
+  completed    Boolean   @default(true)
+  startedAt    DateTime  @default(now())
+  endedAt      DateTime?
+  
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video        Video?    @relation(fields: [videoId], references: [id], onDelete: SetNull)
+}
+
+model ReminderLog {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String   // WATER, EYE, BREAK, STRETCH
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserProgress {
+  id            String   @id @default(uuid())
+  userId        String
+  date          DateTime // Date portion only (YYYY-MM-DD)
+  waterIntakeMl Int      @default(0)
+  focusTimeSec  Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, date])
+}
