@@ -34,15 +34,23 @@ export async function proxy(request: NextRequest) {
   // Refresh token if expired - required for secure cookie-based auth
   const {
     data: { user },
+    error,
   } = await supabase.auth.getUser()
+
+  if (error) {
+    console.error("Proxy middleware getUser error:", error.message)
+  }
 
   const isAuthPage =
     request.nextUrl.pathname.startsWith("/login") ||
     request.nextUrl.pathname.startsWith("/signup")
   const isAuthCallback = request.nextUrl.pathname.startsWith("/auth/callback")
 
+  console.log(`Proxy request path: ${request.nextUrl.pathname}, user: ${user ? user.email : "null"}`)
+
   // If user is not logged in and is trying to access a protected page
   if (!user && !isAuthPage && !isAuthCallback) {
+    console.log("Redirecting unauthenticated user to /login")
     return NextResponse.redirect(new URL("/login", request.url))
   }
 
