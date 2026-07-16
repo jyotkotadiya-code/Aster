@@ -92,23 +92,23 @@ export default async function DashboardPage() {
   if (hour >= 17) greeting = "Good evening"
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in pb-12">
       {/* 1. Header Greeting & Quote */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-6 sm:p-8 rounded-2xl border border-primary/10 bg-primary/5 relative overflow-hidden">
-        <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 h-48 w-48 rounded-full bg-primary/5 blur-2xl -z-10" />
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 p-6 sm:p-8 rounded-2xl border border-outline-variant/30 bg-primary-fixed/20 relative overflow-hidden shadow-soft">
+        <div className="absolute right-0 top-0 translate-x-12 -translate-y-12 h-48 w-48 rounded-full bg-primary-fixed/10 blur-2xl -z-10 animate-pulse" />
         <div className="space-y-1.5 flex-1">
-          <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground flex items-center gap-2">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary flex items-center gap-2 font-heading">
             {greeting}, {profile.name}! <Sparkles className="h-5 w-5 text-primary fill-primary/10 animate-pulse" />
           </h2>
-          <p className="text-sm text-muted-foreground font-medium italic max-w-xl">
+          <p className="text-[13px] text-muted-foreground font-semibold italic max-w-xl leading-relaxed">
             &ldquo;{randomQuote}&rdquo;
           </p>
         </div>
         <div className="flex items-center">
           <Link href="/study">
-            <Button className="bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft">
-              <Play className="mr-1.5 h-4 w-4 fill-current" />
-              Study Now
+            <Button className="bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm px-6 h-10 active:scale-95 text-xs">
+              <Play className="mr-1.5 h-3.5 w-3.5 fill-current" />
+              Focus Now
             </Button>
           </Link>
         </div>
@@ -121,27 +121,32 @@ export default async function DashboardPage() {
           value={playlistCount}
           icon={PlaySquare}
           subtext="Saved YouTube playlists"
+          bgClass="bg-primary-fixed/25"
+          iconColorClass="text-primary bg-primary-fixed-dim/40"
         />
         <StatCard
           title="Total Sessions"
           value={sessionCount}
           icon={Timer}
           subtext="Completed focus sessions"
-          iconColorClass="text-primary bg-primary/10"
+          bgClass="bg-secondary-fixed/25"
+          iconColorClass="text-secondary bg-secondary-fixed-dim/40"
         />
         <StatCard
           title="Focus Today"
           value={`${todayFocusMinutes}m`}
           icon={Calendar}
           subtext={`Goal: ${dailyFocusGoalMinutes}m`}
-          iconColorClass="text-primary bg-primary/10"
+          bgClass="bg-tertiary-fixed/25"
+          iconColorClass="text-tertiary bg-tertiary-fixed-dim/40"
         />
         <StatCard
-          title="Friends"
+          title="Collaborators"
           value={friendCount}
           icon={Users}
-          subtext="Collaborators connected"
-          iconColorClass="text-secondary bg-secondary/10"
+          subtext="Connected friends"
+          bgClass="bg-surface-container-high"
+          iconColorClass="text-muted-foreground bg-surface-container-highest"
         />
       </div>
 
@@ -163,28 +168,28 @@ export default async function DashboardPage() {
           />
         </div>
 
-        {/* Eye Strain Reminder Widget (Mockup for Phase 3) */}
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-soft hover:shadow-medium transition-all duration-200 flex flex-col justify-between h-full space-y-4">
+        {/* Eye Strain Reminder Widget */}
+        <div className="glass-card p-6 rounded-2xl shadow-soft hover:shadow-medium hover-lift transition-all duration-300 flex flex-col justify-between h-full space-y-4">
           <div className="flex items-center justify-between">
-            <div className="space-y-1">
-              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider block">
-                Eye Exercise
+            <div className="space-y-0.5">
+              <span className="text-xs font-bold text-primary uppercase tracking-widest block font-heading">
+                Eye Care
               </span>
-              <p className="text-sm font-medium text-foreground">
+              <p className="text-xs text-muted-foreground font-semibold leading-relaxed">
                 Screen fatigue relief
               </p>
             </div>
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg text-primary bg-primary/10">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg text-primary bg-primary-container/30">
               <Eye className="h-4 w-4" />
             </div>
           </div>
 
-          <div className="space-y-2">
-            <p className="text-xs text-muted-foreground leading-relaxed">
+          <div className="space-y-3">
+            <p className="text-xs text-muted-foreground leading-relaxed font-semibold">
               Studying from screens for long periods causes strain. Relax your eyes with our guided 20-20-20 rule eye exercise widget.
             </p>
-            <div className="rounded-lg bg-muted p-2.5 text-center text-xs font-medium text-foreground border border-border">
-              Next exercise due in: <span className="font-semibold text-primary">15m</span>
+            <div className="rounded-xl bg-surface-container p-2.5 text-center text-xs font-bold text-foreground border border-outline-variant/20">
+              Next exercise due in: <span className="font-bold text-primary font-heading">15m</span>
             </div>
           </div>
 
@@ -192,10 +197,10 @@ export default async function DashboardPage() {
             <Link href="/study">
               <Button
                 variant="outline"
-                className="w-full border-border text-foreground hover:bg-muted/50 rounded-md font-medium cursor-pointer h-9 text-xs"
+                className="w-full border-outline-variant/30 text-foreground hover:bg-surface-container-high rounded-full font-bold cursor-pointer h-9 text-xs active:scale-95"
               >
                 Start Eye Care
-                <ArrowRight className="ml-1.5 h-3 w-3" />
+                <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
               </Button>
             </Link>
           </div>

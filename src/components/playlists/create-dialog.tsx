@@ -33,47 +33,47 @@ export function CreatePlaylistDialog() {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft h-9 px-4 text-sm flex items-center justify-center">
+      <DialogTrigger className="bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm h-9 px-4 text-xs flex items-center justify-center active:scale-95">
         <Plus className="mr-1.5 h-4 w-4" />
         Create Playlist
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] border border-border bg-card shadow-large rounded-2xl">
+      <DialogContent className="sm:max-w-[425px] border border-outline-variant/30 bg-card shadow-large rounded-2xl">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold text-foreground">Create Playlist</DialogTitle>
-          <DialogDescription className="text-xs text-muted-foreground">
+          <DialogTitle className="text-base font-bold text-primary font-heading">Create Playlist</DialogTitle>
+          <DialogDescription className="text-xs text-muted-foreground font-semibold">
             Create a custom folder to organize your Youtube learning videos.
           </DialogDescription>
         </DialogHeader>
         
-        <form action={formAction} className="space-y-4 py-4">
+        <form action={formAction} className="space-y-4 py-2">
           <div className="space-y-1.5">
-            <Label htmlFor="title">Title</Label>
+            <Label htmlFor="title" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Title</Label>
             <Input
               id="title"
               name="title"
               placeholder="e.g., Learn Next.js & React"
               required
               disabled={isPending}
-              className="h-10 border-border bg-background focus-visible:ring-primary focus-visible:border-primary"
+              className="pl-4 h-11 border-outline-variant/30 bg-surface-container rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold"
             />
           </div>
           
           <div className="space-y-1.5">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Description (Optional)</Label>
             <Input
               id="description"
               name="description"
               placeholder="e.g., Mindful study tutorials on frontend development"
               disabled={isPending}
-              className="h-10 border-border bg-background focus-visible:ring-primary focus-visible:border-primary"
+              className="pl-4 h-11 border-outline-variant/30 bg-surface-container rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold"
             />
           </div>
 
-          <DialogFooter className="pt-2">
+          <DialogFooter className="pt-4">
             <Button
               type="submit"
               disabled={isPending}
-              className="w-full sm:w-auto h-10 bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer"
+              className="w-full sm:w-auto h-11 bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer text-xs active:scale-95 shadow-sm"
             >
               {isPending ? (
                 <>

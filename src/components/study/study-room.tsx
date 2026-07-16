@@ -159,34 +159,34 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
   // 1. CHOOSE STUDY ROUTE STATE
   if (!sessionActive) {
     return (
-      <div className="space-y-8 animate-fade-in">
+      <div className="space-y-8 animate-fade-in pb-12">
         {/* Banner */}
-        <div className="p-6 sm:p-8 rounded-2xl border border-border bg-card shadow-soft space-y-4">
-          <h2 className="text-xl sm:text-2xl font-semibold text-foreground tracking-tight">
+        <div className="p-6 sm:p-8 rounded-2xl border border-outline-variant/30 bg-primary-fixed/20 shadow-soft space-y-3">
+          <h2 className="text-xl sm:text-2xl font-bold text-primary tracking-tight font-heading">
             Start a Peaceful Study Session
           </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed max-w-xl">
+          <p className="text-[13px] text-muted-foreground font-semibold leading-relaxed max-w-xl">
             Choose to study with one of your custom playlists to experience split-screen theater mode with active health reminders, or run a standalone Pomodoro timer.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
           {/* Standalone timer card */}
-          <div className="rounded-2xl border border-border bg-card p-6 shadow-soft space-y-5 flex flex-col justify-between h-full">
+          <div className="rounded-2xl border border-outline-variant/15 bg-primary-fixed/25 p-6 shadow-soft hover-lift flex flex-col justify-between h-full min-h-[220px]">
             <div className="space-y-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm">
                 <Timer className="h-5 w-5" />
               </div>
-              <h3 className="font-semibold text-base text-foreground tracking-tight">
+              <h3 className="font-bold text-[15px] text-foreground tracking-tight font-heading">
                 Standalone Timer
               </h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
+              <p className="text-xs text-muted-foreground font-semibold leading-relaxed">
                 Study with physical textbooks or open browser tabs. We will provide full screen hydration and eye exercises.
               </p>
             </div>
             <Button
               onClick={() => handleStartStudy(null)}
-              className="w-full h-10 bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft text-xs"
+              className="w-full h-10 bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm text-xs active:scale-95 mt-4"
             >
               Start Standalone Focus
             </Button>
@@ -194,13 +194,13 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
 
           {/* Playlists grid selection */}
           <div className="md:col-span-2 space-y-4">
-            <h3 className="font-medium text-sm text-muted-foreground uppercase tracking-wider">
+            <h3 className="font-bold text-xs text-primary uppercase tracking-widest font-heading px-1">
               Study with Playlist
             </h3>
             {playlists.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border bg-card p-8 text-center space-y-3">
+              <div className="rounded-2xl border border-dashed border-outline-variant bg-card p-10 text-center space-y-3">
                 <AlertCircle className="h-8 w-8 text-muted-foreground mx-auto" />
-                <p className="text-xs text-muted-foreground">
+                <p className="text-xs text-muted-foreground font-semibold">
                   You don't have any playlists yet.{" "}
                   <Link href="/playlists" className="text-secondary hover:underline">
                     Create a playlist
@@ -213,20 +213,20 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
                 {playlists.map((p) => (
                   <div
                     key={p.id}
-                    className="rounded-2xl border border-border bg-card p-5 shadow-soft hover:shadow-medium hover:scale-[1.01] transition-all flex flex-col justify-between"
+                    className="rounded-xl border border-outline-variant/15 bg-surface-container-high p-5 shadow-soft hover-lift flex flex-col justify-between min-h-[160px]"
                   >
                     <div className="space-y-1 mb-4">
-                      <h4 className="font-semibold text-sm text-foreground line-clamp-1">
+                      <h4 className="font-bold text-[14px] text-foreground line-clamp-1 font-heading">
                         {p.title}
                       </h4>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-[11px] text-muted-foreground font-semibold">
                         {p.videos.length} videos inside
                       </p>
                     </div>
                     <Button
                       onClick={() => handleStartStudy(p.id)}
                       disabled={p.videos.length === 0}
-                      className="w-full h-9 bg-secondary text-white hover:bg-secondary/95 transition-all rounded-md font-medium cursor-pointer text-xs"
+                      className="w-full h-9 bg-secondary text-white hover:opacity-90 transition-all rounded-full font-bold cursor-pointer text-xs shadow-sm shadow-secondary/15 active:scale-95"
                     >
                       Study with Playlist &rarr;
                     </Button>
@@ -242,7 +242,7 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
 
   // 2. ACTIVE STUDY STATE
   return (
-    <div className="space-y-6 animate-fade-in relative">
+    <div className="space-y-6 animate-fade-in relative pb-12">
       {/* Dynamic Health Reminders Overlay Modal */}
       {overlayType !== null && (
         <StudyOverlay
@@ -253,16 +253,16 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
       )}
 
       {/* Control panel header */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl border border-border bg-card shadow-soft">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-5 rounded-2xl border border-outline-variant/30 bg-surface-container shadow-soft">
         <div className="flex items-center space-x-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-container/30 text-primary">
             <Timer className="h-6 w-6 animate-pulse" />
           </div>
           <div>
-            <span className="text-[10px] font-bold text-muted-foreground tracking-wider uppercase">
+            <span className="text-[10px] font-bold text-primary tracking-widest uppercase block font-heading">
               Current Session
             </span>
-            <div className="text-2xl font-mono font-bold tracking-tight text-foreground">
+            <div className="text-2xl font-mono font-bold tracking-tight text-primary">
               {formatTime(secondsElapsed)}
             </div>
           </div>
@@ -270,14 +270,14 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
 
         <div className="flex items-center gap-3">
           {/* Test mode toggle */}
-          <div className="flex items-center space-x-2 mr-2 border border-border/80 rounded-lg px-2.5 py-1 text-xs select-none">
-            <Label htmlFor="test-mode" className="text-muted-foreground cursor-pointer font-medium">Test Reminders</Label>
+          <div className="flex items-center space-x-2 mr-2 border border-outline-variant/30 bg-surface rounded-full px-3.5 py-1 text-xs select-none">
+            <Label htmlFor="test-mode" className="text-muted-foreground cursor-pointer font-bold font-heading">Test Reminders</Label>
             <input
               type="checkbox"
               id="test-mode"
               checked={testMode}
               onChange={(e) => setTestMode(e.target.checked)}
-              className="h-3.5 w-3.5 accent-primary cursor-pointer"
+              className="h-4 w-4 accent-primary cursor-pointer"
             />
           </div>
 
@@ -287,7 +287,7 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
               variant="outline"
               size="icon"
               onClick={() => setIsTimerRunning(!isTimerRunning)}
-              className="h-10 w-10 border-border text-foreground hover:bg-muted cursor-pointer"
+              className="h-10 w-10 border-outline-variant/30 text-foreground hover:bg-surface-container-high rounded-full cursor-pointer active:scale-90 transition-all duration-200"
             >
               {isTimerRunning ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}
             </Button>
@@ -295,10 +295,10 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
 
           <Button
             onClick={handleStopSession}
-            className="bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft h-10 px-5 text-sm"
+            className="bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm h-10 px-5 text-xs active:scale-95"
           >
-            <Square className="mr-1.5 h-4 w-4 fill-current" />
-            Finish Study
+            <Square className="mr-1.5 h-3.5 w-3.5 fill-current" />
+            Finish Focus
           </Button>
         </div>
       </div>
@@ -314,29 +314,29 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
             />
 
             {/* Video metadata */}
-            <div className="rounded-2xl border border-border bg-card p-5 shadow-soft">
-              <h3 className="font-semibold text-lg text-foreground tracking-tight leading-snug">
+            <div className="glass-card p-6 rounded-xl border border-outline-variant/15 shadow-soft">
+              <h3 className="font-bold text-[15px] text-primary tracking-tight leading-snug font-heading">
                 {activeVideo.title}
               </h3>
-              <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1.5">
-                <BookOpen className="h-3.5 w-3.5" />
+              <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1.5 font-semibold">
+                <BookOpen className="h-3.5 w-3.5 text-primary" />
                 Playlist: {activePlaylist.title} ({activeVideoIndex + 1} of {activePlaylist.videos.length})
               </p>
             </div>
           </div>
 
           {/* Watch room Sidebar */}
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-soft flex flex-col h-[480px] lg:h-[540px] overflow-hidden space-y-4">
-            <div className="space-y-1">
-              <h3 className="font-semibold text-base text-foreground tracking-tight">
+          <div className="glass-card p-5 rounded-xl border border-outline-variant/15 shadow-soft flex flex-col h-[480px] lg:h-[540px] overflow-hidden space-y-4">
+            <div className="space-y-0.5">
+              <h3 className="font-bold text-[14px] text-primary tracking-tight font-heading">
                 Up Next
               </h3>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-muted-foreground font-semibold">
                 Click any video to switch lessons
               </p>
             </div>
 
-            <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+            <div className="flex-grow overflow-y-auto space-y-2 pr-1">
               {activePlaylist.videos.map((pv, idx) => {
                 const isCurrent = idx === activeVideoIndex
                 return (
@@ -346,23 +346,20 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
                       setIsTimerRunning(false)
                       setActiveVideoIndex(idx)
                     }}
-                    className={`w-full text-left flex items-center gap-3 p-2 rounded-xl border transition-all duration-200 group relative ${
+                    className={`w-full text-left flex items-center gap-3.5 p-3 rounded-full border transition-all duration-200 group relative hover:translate-x-1 ${
                       isCurrent
-                        ? "bg-primary/5 border-primary/20"
-                        : "border-transparent hover:bg-muted/50 hover:border-border"
+                        ? "bg-primary-container border-outline-variant/30 text-primary-foreground font-bold shadow-sm"
+                        : "border-transparent hover:bg-surface-container-high/60"
                     }`}
                   >
-                    {isCurrent && (
-                      <div className="absolute left-0 top-2 bottom-2 w-1 rounded-r bg-primary" />
-                    )}
                     <span className={`text-[10px] font-bold w-4 text-center shrink-0 ${
-                      isCurrent ? "text-primary" : "text-muted-foreground"
+                      isCurrent ? "text-primary-foreground" : "text-muted-foreground"
                     }`}>
                       {isCurrent ? <Play className="h-3 w-3 fill-current mx-auto" /> : idx + 1}
                     </span>
                     <div className="flex-1 min-w-0 space-y-0.5">
-                      <p className={`text-xs font-medium line-clamp-2 leading-snug ${
-                        isCurrent ? "text-primary font-semibold" : "text-foreground group-hover:text-primary transition-colors"
+                      <p className={`text-xs font-semibold line-clamp-1 leading-snug ${
+                        isCurrent ? "text-primary-foreground" : "text-foreground group-hover:text-primary transition-colors"
                       }`}>
                         {pv.video.title}
                       </p>
@@ -378,17 +375,17 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
       {/* 2B. STANDALONE TIMER VIEW */}
       {selectedPlaylistId === null && (
         <div className="max-w-xl mx-auto py-12">
-          <div className="rounded-3xl border border-border bg-card p-10 shadow-soft text-center space-y-8 relative overflow-hidden flex flex-col items-center">
+          <div className="glass-card p-10 rounded-2xl shadow-soft text-center space-y-8 relative overflow-hidden flex flex-col items-center border border-outline-variant/15">
             {/* Pulsing breathing focus background */}
-            <div className={`absolute -z-10 h-64 w-64 rounded-full bg-primary/5 blur-3xl transition-all duration-1000 ${
+            <div className={`absolute -z-10 h-64 w-64 rounded-full bg-primary-container/20 blur-3xl transition-all duration-1000 ${
               isTimerRunning ? "scale-110 opacity-70" : "scale-90 opacity-40"
             }`} />
 
-            <div className="space-y-2">
-              <h3 className="text-2xl font-semibold tracking-tight text-foreground">
+            <div className="space-y-1.5">
+              <h3 className="text-xl font-bold tracking-tight text-primary font-heading">
                 Mindful Study Space
               </h3>
-              <p className="text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+              <p className="text-xs text-muted-foreground font-semibold max-w-sm mx-auto leading-relaxed">
                 Take this time to read, sketch, or focus offline. Reminders will prompt you automatically when it's time to stretch or blink.
               </p>
             </div>
@@ -400,16 +397,16 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
             <div className="flex items-center gap-4">
               <Button
                 onClick={() => setIsTimerRunning(!isTimerRunning)}
-                className="h-12 px-6 bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft text-sm"
+                className="h-12 px-6 bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm text-xs active:scale-95"
               >
                 {isTimerRunning ? (
                   <>
-                    <Pause className="mr-1.5 h-4 w-4 fill-current" />
+                    <Pause className="mr-1.5 h-3.5 w-3.5 fill-current" />
                     Pause Timer
                   </>
                 ) : (
                   <>
-                    <Play className="mr-1.5 h-4 w-4 fill-current" />
+                    <Play className="mr-1.5 h-3.5 w-3.5 fill-current" />
                     Resume Timer
                   </>
                 )}
@@ -418,9 +415,9 @@ export function StudyRoom({ playlists }: StudyRoomProps) {
               <Button
                 variant="outline"
                 onClick={handleStopSession}
-                className="h-12 px-6 border-border text-foreground hover:bg-muted rounded-md font-medium cursor-pointer text-sm"
+                className="h-12 px-6 border-outline-variant/30 text-foreground hover:bg-surface-container-high rounded-full font-bold text-xs active:scale-95"
               >
-                <Square className="mr-1.5 h-4 w-4 text-destructive fill-destructive/10" />
+                <Square className="mr-1.5 h-3.5 w-3.5 text-destructive fill-destructive/10" />
                 Stop Focus
               </Button>
             </div>

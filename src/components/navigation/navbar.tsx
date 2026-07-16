@@ -19,7 +19,6 @@ import {
   LogOut, 
   User as UserIcon, 
   Settings, 
-  Sparkles,
   Play
 } from "lucide-react"
 import Link from "next/link"
@@ -51,11 +50,18 @@ export function Navbar({ user }: NavbarProps) {
     ? user.name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()
     : user.email.slice(0, 2).toUpperCase()
 
+  // 4-state smart toggle (keeps active palette: bloom or drift)
+  const isDark = theme?.endsWith("-dark")
+  const activePalette = theme?.split("-")[0] ?? "bloom"
+  const toggleTheme = () => {
+    setTheme(isDark ? `${activePalette}-light` : `${activePalette}-dark`)
+  }
+
   return (
-    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-border bg-background/85 backdrop-blur-md px-6">
+    <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-outline-variant/30 bg-background/80 backdrop-blur-xl px-6 transition-all duration-300">
       {/* Title / Current Page Name */}
       <div>
-        <h1 className="text-xl font-semibold text-foreground tracking-tight">
+        <h1 className="text-[16px] font-bold text-primary tracking-tight font-heading">
           {title}
         </h1>
       </div>
@@ -65,9 +71,9 @@ export function Navbar({ user }: NavbarProps) {
         {/* Quick Start Study Button */}
         {pathname !== "/study" && (
           <Link href="/study">
-            <Button size="sm" className="hidden sm:flex bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer h-9 px-4">
-              <Play className="mr-1.5 h-4 w-4 fill-current" />
-              Start Study
+            <Button size="sm" className="hidden sm:flex bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-semibold cursor-pointer h-9 px-4 shadow-sm active:scale-95">
+              <Play className="mr-1.5 h-3.5 w-3.5 fill-current" />
+              Start Focus
             </Button>
           </Link>
         )}
@@ -76,25 +82,28 @@ export function Navbar({ user }: NavbarProps) {
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          className="h-9 w-9 text-muted-foreground hover:text-foreground rounded-lg cursor-pointer"
+          onClick={toggleTheme}
+          className="h-9 w-9 text-muted-foreground hover:text-foreground hover:bg-surface-container-high rounded-full cursor-pointer transition-all duration-200"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          {isDark ? (
+            <Sun className="h-[1.1rem] w-[1.1rem]" />
+          ) : (
+            <Moon className="h-[1.1rem] w-[1.1rem]" />
+          )}
           <span className="sr-only">Toggle theme</span>
         </Button>
 
         {/* User Profile Dropdown Menu */}
         <DropdownMenu>
-          <DropdownMenuTrigger className="relative h-9 w-9 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center cursor-pointer select-none hover:bg-primary/20 transition-colors">
-            <span className="text-xs font-semibold text-primary">
+          <DropdownMenuTrigger className="relative h-9 w-9 rounded-full bg-secondary-container flex items-center justify-center cursor-pointer select-none hover:opacity-90 transition-opacity border border-outline-variant/30">
+            <span className="text-[12px] font-bold text-on-secondary-container">
               {userInitials}
             </span>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 mt-1 border border-border bg-card shadow-medium rounded-lg" align="end">
+          <DropdownMenuContent className="w-56 mt-2 border border-outline-variant/30 bg-card shadow-medium rounded-[16px]" align="end">
             <DropdownMenuLabel className="font-normal p-3">
               <div className="flex flex-col space-y-1">
-                <p className="text-sm font-medium leading-none text-foreground">
+                <p className="text-sm font-bold leading-none text-foreground">
                   {user.name ?? "Student"}
                 </p>
                 <p className="text-xs leading-none text-muted-foreground truncate">
@@ -102,21 +111,21 @@ export function Navbar({ user }: NavbarProps) {
                 </p>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator className="bg-border" />
-            <DropdownMenuItem className="p-2 cursor-pointer focus:bg-muted/50 rounded-md">
+            <DropdownMenuSeparator className="bg-outline-variant/20" />
+            <DropdownMenuItem className="p-2.5 cursor-pointer focus:bg-surface-container-high rounded-lg font-semibold text-sm">
               <Link href="/settings" className="flex w-full items-center">
-                <Settings className="mr-2 h-4 w-4 text-muted-foreground" />
+                <Settings className="mr-2.5 h-4 w-4 text-muted-foreground" />
                 Settings
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator className="bg-border" />
+            <DropdownMenuSeparator className="bg-outline-variant/20" />
             <DropdownMenuItem 
               onClick={async () => {
                 await logout()
               }}
-              className="p-2 text-destructive cursor-pointer focus:bg-destructive/10 focus:text-destructive rounded-md"
+              className="p-2.5 text-destructive cursor-pointer focus:bg-destructive/10 focus:text-destructive rounded-lg font-semibold text-sm"
             >
-              <LogOut className="mr-2 h-4 w-4" />
+              <LogOut className="mr-2.5 h-4 w-4" />
               Log Out
             </DropdownMenuItem>
           </DropdownMenuContent>

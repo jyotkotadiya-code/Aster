@@ -62,25 +62,25 @@ export default async function FriendsPage() {
   })
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in pb-12">
       {/* Header */}
-      <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+      <div className="space-y-0.5">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary font-heading">
           Study Friends
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-[13px] text-muted-foreground font-semibold leading-relaxed">
           Connect with collaborators and share study playlists
         </p>
       </div>
 
       {/* Add Friend Section */}
-      <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-soft space-y-4">
-        <div className="space-y-1">
-          <h3 className="font-semibold text-base text-foreground tracking-tight flex items-center">
+      <div className="rounded-2xl border border-outline-variant/30 bg-primary-fixed/20 p-5 sm:p-6 shadow-soft space-y-4">
+        <div className="space-y-0.5">
+          <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center font-heading">
             <Mail className="mr-1.5 h-4 w-4 text-primary" />
             Add Friend
           </h3>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground font-semibold">
             Search for another user by email or username to send a connection request
           </p>
         </div>
@@ -90,23 +90,23 @@ export default async function FriendsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Active Friends List (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-soft space-y-4">
-            <div className="flex items-center justify-between border-b border-border/50 pb-3">
-              <h3 className="font-semibold text-base text-foreground tracking-tight flex items-center">
+          <div className="glass-card p-6 rounded-2xl shadow-soft border border-outline-variant/15 space-y-4">
+            <div className="flex items-center justify-between border-b border-outline-variant/20 pb-3">
+              <h3 className="font-bold text-base text-primary tracking-tight flex items-center font-heading">
                 <Users className="mr-1.5 h-4 w-4 text-primary" />
                 Active Friends ({activeFriends.length})
               </h3>
             </div>
 
             {activeFriends.length === 0 ? (
-              <div className="text-center py-12 space-y-2 border border-dashed border-border rounded-xl">
+              <div className="text-center py-12 space-y-2 border border-dashed border-outline-variant/30 rounded-xl bg-surface-container-low">
                 <Users className="h-8 w-8 text-muted-foreground/60 mx-auto" />
-                <p className="text-xs text-muted-foreground max-w-xs mx-auto">
+                <p className="text-xs text-muted-foreground font-semibold max-w-xs mx-auto">
                   You haven't added any study friends yet. Add a friend to start sharing custom learning playlists!
                 </p>
               </div>
             ) : (
-              <div className="divide-y divide-border/50">
+              <div className="divide-y divide-outline-variant/15">
                 {activeFriends.map((friend) => {
                   const initials = friend.name
                     ? friend.name
@@ -122,16 +122,16 @@ export default async function FriendsPage() {
                       className="py-3.5 flex items-center justify-between first:pt-0 last:pb-0"
                     >
                       <div className="flex items-center space-x-3.5">
-                        <div className="h-10 w-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center select-none shrink-0">
-                          <span className="text-xs font-semibold text-primary">
+                        <div className="h-10 w-10 rounded-full bg-primary-container/30 border border-outline-variant/20 flex items-center justify-center select-none shrink-0 shadow-sm">
+                          <span className="text-xs font-bold text-primary">
                             {initials}
                           </span>
                         </div>
                         <div className="min-w-0">
-                          <h4 className="text-xs font-semibold text-foreground truncate">
+                          <h4 className="text-xs font-bold text-foreground truncate font-heading">
                             {friend.name}
                           </h4>
-                          <p className="text-[10px] text-muted-foreground truncate">
+                          <p className="text-[10px] text-muted-foreground font-semibold truncate leading-none mt-0.5">
                             {friend.email}
                           </p>
                         </div>
@@ -152,14 +152,14 @@ export default async function FriendsPage() {
         {/* Requests Sidebars (1 col) */}
         <div className="space-y-6">
           {/* Incoming Requests */}
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-soft space-y-4">
-            <h3 className="font-semibold text-sm text-foreground tracking-tight flex items-center border-b border-border/50 pb-2.5">
+          <div className="glass-card p-5 rounded-2xl border border-outline-variant/15 shadow-soft space-y-4">
+            <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center border-b border-outline-variant/20 pb-2.5 font-heading">
               <ArrowRightLeft className="mr-1.5 h-4 w-4 text-primary" />
               Incoming Requests ({incomingRequests.length})
             </h3>
 
             {incomingRequests.length === 0 ? (
-              <p className="text-[11px] text-muted-foreground text-center py-4">
+              <p className="text-[11px] text-muted-foreground font-semibold text-center py-4">
                 No pending incoming requests
               </p>
             ) : (
@@ -176,19 +176,19 @@ export default async function FriendsPage() {
                   return (
                     <div
                       key={req.id}
-                      className="flex flex-col gap-2.5 p-3 rounded-xl border border-border/60 bg-muted/10"
+                      className="flex flex-col gap-2.5 p-3.5 rounded-xl border border-outline-variant/15 bg-surface-container-low"
                     >
                       <div className="flex items-center space-x-2.5">
-                        <div className="h-8 w-8 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                        <div className="h-8 w-8 rounded-full bg-primary-container/30 border border-outline-variant/20 flex items-center justify-center shrink-0 shadow-sm">
                           <span className="text-[10px] font-bold text-primary">
                             {initials}
                           </span>
                         </div>
                         <div className="min-w-0">
-                          <h4 className="text-xs font-semibold text-foreground truncate leading-tight">
+                          <h4 className="text-xs font-bold text-foreground truncate leading-tight font-heading">
                             {req.user.name}
                           </h4>
-                          <p className="text-[9px] text-muted-foreground truncate leading-none mt-0.5">
+                          <p className="text-[9px] text-muted-foreground font-semibold truncate leading-none mt-0.5">
                             {req.user.email}
                           </p>
                         </div>
@@ -205,14 +205,14 @@ export default async function FriendsPage() {
           </div>
 
           {/* Sent Requests */}
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-soft space-y-4">
-            <h3 className="font-semibold text-sm text-foreground tracking-tight flex items-center border-b border-border/50 pb-2.5">
+          <div className="glass-card p-5 rounded-2xl border border-outline-variant/15 shadow-soft space-y-4">
+            <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center border-b border-outline-variant/20 pb-2.5 font-heading">
               <Clock className="mr-1.5 h-4 w-4 text-primary" />
               Sent Requests ({sentRequests.length})
             </h3>
 
             {sentRequests.length === 0 ? (
-              <p className="text-[11px] text-muted-foreground text-center py-4">
+              <p className="text-[11px] text-muted-foreground font-semibold text-center py-4">
                 No pending sent requests
               </p>
             ) : (
@@ -229,19 +229,19 @@ export default async function FriendsPage() {
                   return (
                     <div
                       key={req.id}
-                      className="flex items-center justify-between p-2.5 rounded-xl border border-border/50 bg-muted/5"
+                      className="flex items-center justify-between p-3 rounded-xl border border-outline-variant/15 bg-surface-container/60"
                     >
                       <div className="flex items-center space-x-2.5 min-w-0">
-                        <div className="h-8 w-8 rounded-full bg-primary/5 border border-primary/10 flex items-center justify-center shrink-0">
-                          <span className="text-[10px] font-semibold text-muted-foreground">
+                        <div className="h-8 w-8 rounded-full bg-surface-container border border-outline-variant/20 flex items-center justify-center shrink-0 shadow-sm">
+                          <span className="text-[10px] font-bold text-muted-foreground">
                             {initials}
                           </span>
                         </div>
                         <div className="min-w-0">
-                          <h4 className="text-xs font-semibold text-foreground truncate leading-tight">
+                          <h4 className="text-xs font-bold text-foreground truncate leading-tight font-heading">
                             {req.friend.name}
                           </h4>
-                          <span className="text-[8px] font-bold text-muted-foreground uppercase tracking-wider block mt-0.5">
+                          <span className="text-[8px] font-bold text-primary uppercase tracking-wider block mt-0.5 font-heading">
                             Pending
                           </span>
                         </div>

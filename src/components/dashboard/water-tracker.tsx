@@ -68,40 +68,40 @@ export function WaterTracker({
   const percentage = Math.min((water / dailyGoalMl) * 100, 100)
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5 shadow-soft hover:shadow-medium transition-all duration-200 flex flex-col justify-between h-full space-y-4">
+    <div className="glass-card p-6 rounded-2xl shadow-soft hover:shadow-medium hover-lift transition-all duration-300 flex flex-col justify-between h-full space-y-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="space-y-1">
-          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider block">
-            Hydration Tracker
+        <div className="space-y-0.5">
+          <span className="text-xs font-bold text-secondary uppercase tracking-widest block font-heading">
+            Hydration
           </span>
-          <p className="text-sm font-medium text-foreground">
+          <p className="text-xs text-muted-foreground font-semibold leading-relaxed">
             Stay focused, drink water
           </p>
         </div>
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary bg-secondary/10">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg text-secondary bg-secondary-container/30">
           <Droplet className="h-4 w-4 fill-current animate-pulse" />
         </div>
       </div>
 
       {/* Progress display */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-end justify-between">
           <div className="flex items-baseline gap-1">
-            <p className="text-2xl font-semibold tracking-tight">
+            <p className="text-2xl font-bold tracking-tight font-display text-secondary">
               {water}
             </p>
-            <span className="text-sm font-normal text-muted-foreground">/ {dailyGoalMl} ml</span>
+            <span className="text-[12px] font-bold text-muted-foreground font-heading">/ {dailyGoalMl} ml</span>
           </div>
-          <span className="text-xs font-semibold text-secondary">
+          <span className="text-[12px] font-bold text-secondary font-heading">
             {Math.round(percentage)}%
           </span>
         </div>
         
         {/* Progress Bar with Secondary Accent color (Sky Blue) */}
-        <div className="relative w-full h-2 bg-muted rounded-full overflow-hidden">
+        <div className="relative w-full h-3 bg-surface-container rounded-full overflow-hidden">
           <div 
-            className="h-full bg-secondary transition-all duration-500 ease-out" 
+            className="h-full bg-secondary transition-all duration-500 ease-out rounded-full shadow-inner" 
             style={{ width: `${percentage}%` }}
           />
         </div>
@@ -113,12 +113,12 @@ export function WaterTracker({
           size="sm"
           onClick={handleAddWater}
           disabled={isPending}
-          className="flex-1 bg-secondary text-white hover:bg-secondary/90 transition-all rounded-md font-medium cursor-pointer h-9 px-3 text-xs"
+          className="flex-1 bg-secondary text-white hover:opacity-90 transition-all rounded-full font-bold cursor-pointer h-9 px-4 text-xs shadow-sm shadow-secondary/15 active:scale-95"
         >
           {isPending ? (
-            <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" />
+            <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
           ) : (
-            <Plus className="mr-1 h-3.5 w-3.5" />
+            <Plus className="mr-1.5 h-3.5 w-3.5" />
           )}
           Add Glass (+250ml)
         </Button>
@@ -127,7 +127,7 @@ export function WaterTracker({
           size="icon"
           onClick={handleReset}
           disabled={isPending}
-          className="h-9 w-9 border-border text-muted-foreground hover:text-foreground cursor-pointer"
+          className="h-9 w-9 border-outline-variant/30 text-muted-foreground hover:text-foreground hover:bg-surface-container-high rounded-full cursor-pointer transition-all active:scale-95"
           title="Reset"
         >
           {isPending ? (

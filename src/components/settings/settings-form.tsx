@@ -10,14 +10,12 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { 
   User, 
-  Settings, 
   Moon, 
   Sun, 
   Monitor, 
   Bell, 
   Loader2, 
-  Save,
-  ShieldAlert
+  Save
 } from "lucide-react"
 
 interface Profile {
@@ -86,43 +84,62 @@ export function SettingsForm({ profile }: SettingsFormProps) {
     toast.success("Reminder preferences updated locally.")
   }
 
+  // Smart Theme Switch helper
+  const handleThemeChange = (target: "light" | "dark" | "system") => {
+    if (target === "system") {
+      setTheme("system")
+      return
+    }
+    const currentTheme = theme || "bloom-light"
+    const isDrift = currentTheme.includes("drift")
+    if (target === "light") {
+      setTheme(isDrift ? "drift-light" : "bloom-light")
+    } else {
+      setTheme(isDrift ? "drift-dark" : "bloom-dark")
+    }
+  }
+
+  const isLightTheme = theme?.includes("light")
+  const isDarkTheme = theme?.includes("dark")
+  const isSystemTheme = theme === "system"
+
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         {/* Left/Middle Column: Profile & Goals Form */}
         <div className="md:col-span-2 space-y-6">
-          <form onSubmit={handleSaveProfile} className="rounded-2xl border border-border bg-card p-6 shadow-soft space-y-5">
-            <h3 className="font-semibold text-base text-foreground tracking-tight flex items-center border-b border-border/50 pb-3">
+          <form onSubmit={handleSaveProfile} className="glass-card p-6 rounded-2xl border border-outline-variant/15 shadow-soft space-y-5 bg-surface-container-low">
+            <h3 className="font-bold text-base text-primary tracking-tight flex items-center border-b border-outline-variant/20 pb-3 font-heading">
               <User className="mr-1.5 h-4.5 w-4.5 text-primary" />
               Profile & Goals Settings
             </h3>
 
             <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-xs text-muted-foreground">Email (Read Only)</Label>
+              <Label htmlFor="email" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Email (Read Only)</Label>
               <Input
                 id="email"
                 type="email"
                 value={profile.email}
                 disabled
-                className="h-10 border-border bg-muted cursor-not-allowed"
+                className="h-11 border-outline-variant/10 bg-surface-container text-muted-foreground/60 rounded-full px-4 text-xs font-semibold select-none cursor-not-allowed"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label htmlFor="name">Display Name</Label>
+              <Label htmlFor="name" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Display Name</Label>
               <Input
                 id="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
                 disabled={isPending}
-                className="h-10 border-border bg-background focus-visible:ring-primary focus-visible:border-primary"
+                className="h-11 border-outline-variant/30 bg-surface rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold px-4 shadow-inner"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <Label htmlFor="focus-minutes">Daily Focus Goal (Minutes)</Label>
+                <Label htmlFor="focus-minutes" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Daily Focus Goal (Minutes)</Label>
                 <Input
                   id="focus-minutes"
                   type="number"
@@ -132,12 +149,12 @@ export function SettingsForm({ profile }: SettingsFormProps) {
                   onChange={(e) => setFocusMinutes(parseInt(e.target.value) || 0)}
                   required
                   disabled={isPending}
-                  className="h-10 border-border bg-background focus-visible:ring-primary focus-visible:border-primary"
+                  className="h-11 border-outline-variant/30 bg-surface rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold px-4 shadow-inner"
                 />
               </div>
 
               <div className="space-y-1.5">
-                <Label htmlFor="water-goal">Daily Hydration Goal (ml)</Label>
+                <Label htmlFor="water-goal" className="text-xs font-bold text-primary tracking-widest font-heading pl-1">Daily Hydration Goal (ml)</Label>
                 <Input
                   id="water-goal"
                   type="number"
@@ -147,25 +164,25 @@ export function SettingsForm({ profile }: SettingsFormProps) {
                   onChange={(e) => setWaterMl(parseInt(e.target.value) || 0)}
                   required
                   disabled={isPending}
-                  className="h-10 border-border bg-background focus-visible:ring-primary focus-visible:border-primary"
+                  className="h-11 border-outline-variant/30 bg-surface rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold px-4 shadow-inner"
                 />
               </div>
             </div>
 
-            <div className="pt-2 border-t border-border/50 flex justify-end">
+            <div className="pt-4 border-t border-outline-variant/20 flex justify-end">
               <Button
                 type="submit"
                 disabled={isPending}
-                className="bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft h-10 px-5"
+                className="bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm h-11 px-6 text-xs active:scale-95"
               >
                 {isPending ? (
                   <>
-                    <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
                     Saving...
                   </>
                 ) : (
                   <>
-                    <Save className="mr-1.5 h-4 w-4 fill-current" />
+                    <Save className="mr-1.5 h-3.5 w-3.5 fill-current" />
                     Save Goals
                   </>
                 )}
@@ -177,8 +194,8 @@ export function SettingsForm({ profile }: SettingsFormProps) {
         {/* Right Column: Theme & Notifications settings */}
         <div className="space-y-6">
           {/* Theme Selector Widget */}
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-soft space-y-4">
-            <h3 className="font-semibold text-sm text-foreground tracking-tight flex items-center border-b border-border/50 pb-2.5">
+          <div className="glass-card p-5 rounded-2xl border border-outline-variant/15 shadow-soft space-y-4">
+            <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center border-b border-outline-variant/20 pb-2.5 font-heading">
               <Sun className="mr-1.5 h-4 w-4 text-primary" />
               Theme Appearance
             </h3>
@@ -187,50 +204,50 @@ export function SettingsForm({ profile }: SettingsFormProps) {
               {/* Light Card */}
               <button
                 type="button"
-                onClick={() => setTheme("light")}
+                onClick={() => handleThemeChange("light")}
                 className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 cursor-pointer transition-all ${
-                  theme === "light" 
-                    ? "bg-primary/5 border-primary text-primary" 
-                    : "border-border/60 hover:bg-muted/50 hover:border-border text-muted-foreground"
+                  isLightTheme 
+                    ? "bg-primary-container border-outline-variant/30 text-primary font-bold shadow-sm" 
+                    : "border-outline-variant/15 hover:bg-surface-container-high text-muted-foreground font-semibold"
                 }`}
               >
                 <Sun className="h-4 w-4" />
-                <span className="text-[10px] font-bold">Light</span>
+                <span className="text-[10px] font-heading font-bold">Light</span>
               </button>
 
               {/* Dark Card */}
               <button
                 type="button"
-                onClick={() => setTheme("dark")}
+                onClick={() => handleThemeChange("dark")}
                 className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 cursor-pointer transition-all ${
-                  theme === "dark" 
-                    ? "bg-primary/5 border-primary text-primary" 
-                    : "border-border/60 hover:bg-muted/50 hover:border-border text-muted-foreground"
+                  isDarkTheme 
+                    ? "bg-primary-container border-outline-variant/30 text-primary font-bold shadow-sm" 
+                    : "border-outline-variant/15 hover:bg-surface-container-high text-muted-foreground font-semibold"
                 }`}
               >
                 <Moon className="h-4 w-4" />
-                <span className="text-[10px] font-bold">Dark</span>
+                <span className="text-[10px] font-heading font-bold">Dark</span>
               </button>
 
               {/* System Card */}
               <button
                 type="button"
-                onClick={() => setTheme("system")}
+                onClick={() => handleThemeChange("system")}
                 className={`p-3 rounded-xl border flex flex-col items-center gap-1.5 cursor-pointer transition-all ${
-                  theme === "system" 
-                    ? "bg-primary/5 border-primary text-primary" 
-                    : "border-border/60 hover:bg-muted/50 hover:border-border text-muted-foreground"
+                  isSystemTheme 
+                    ? "bg-primary-container border-outline-variant/30 text-primary font-bold shadow-sm" 
+                    : "border-outline-variant/15 hover:bg-surface-container-high text-muted-foreground font-semibold"
                 }`}
               >
                 <Monitor className="h-4 w-4" />
-                <span className="text-[10px] font-bold">System</span>
+                <span className="text-[10px] font-heading font-bold">System</span>
               </button>
             </div>
           </div>
 
           {/* Health Reminders Toggles */}
-          <div className="rounded-2xl border border-border bg-card p-5 shadow-soft space-y-4">
-            <h3 className="font-semibold text-sm text-foreground tracking-tight flex items-center border-b border-border/50 pb-2.5">
+          <div className="glass-card p-5 rounded-2xl border border-outline-variant/15 shadow-soft space-y-4">
+            <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center border-b border-outline-variant/20 pb-2.5 font-heading">
               <Bell className="mr-1.5 h-4 w-4 text-primary animate-pulse" />
               Mindful Alerts
             </h3>
@@ -239,51 +256,51 @@ export function SettingsForm({ profile }: SettingsFormProps) {
               {/* Eye exercise toggle */}
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="toggle-eye" className="text-xs font-semibold text-foreground cursor-pointer select-none">
+                  <Label htmlFor="toggle-eye" className="text-xs font-bold text-foreground cursor-pointer select-none font-heading">
                     Eye Relief Reminders
                   </Label>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">Prompt 20-20-20 rule every 20m</p>
+                  <p className="text-[9px] text-muted-foreground font-semibold leading-relaxed">Prompt 20-20-20 rule every 20m</p>
                 </div>
                 <input
                   type="checkbox"
                   id="toggle-eye"
                   checked={eyeAlerts}
                   onChange={(e) => handleToggleAlert("eye", e.target.checked)}
-                  className="h-4 w-4 accent-primary cursor-pointer"
+                  className="h-4 w-4 accent-primary cursor-pointer rounded-full"
                 />
               </div>
 
               {/* Water reminder toggle */}
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="toggle-water" className="text-xs font-semibold text-foreground cursor-pointer select-none">
+                  <Label htmlFor="toggle-water" className="text-xs font-bold text-foreground cursor-pointer select-none font-heading">
                     Hydration Reminders
                   </Label>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">Prompt water sip alerts every 45m</p>
+                  <p className="text-[9px] text-muted-foreground font-semibold leading-relaxed">Prompt water sip alerts every 45m</p>
                 </div>
                 <input
                   type="checkbox"
                   id="toggle-water"
                   checked={waterAlerts}
                   onChange={(e) => handleToggleAlert("water", e.target.checked)}
-                  className="h-4 w-4 accent-primary cursor-pointer"
+                  className="h-4 w-4 accent-primary cursor-pointer rounded-full"
                 />
               </div>
 
               {/* Break reminder toggle */}
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label htmlFor="toggle-break" className="text-xs font-semibold text-foreground cursor-pointer select-none">
+                  <Label htmlFor="toggle-break" className="text-xs font-bold text-foreground cursor-pointer select-none font-heading">
                     Stretch Breaks Reminders
                   </Label>
-                  <p className="text-[9px] text-muted-foreground leading-relaxed">Prompt relaxation breaks every 25m</p>
+                  <p className="text-[9px] text-muted-foreground font-semibold leading-relaxed">Prompt relaxation breaks every 25m</p>
                 </div>
                 <input
                   type="checkbox"
                   id="toggle-break"
                   checked={breakAlerts}
                   onChange={(e) => handleToggleAlert("break", e.target.checked)}
-                  className="h-4 w-4 accent-primary cursor-pointer"
+                  className="h-4 w-4 accent-primary cursor-pointer rounded-full"
                 />
               </div>
             </div>

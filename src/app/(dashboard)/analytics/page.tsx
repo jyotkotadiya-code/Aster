@@ -95,13 +95,13 @@ export default async function AnalyticsPage() {
   const recentSessions = sessions.slice(0, 5)
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in pb-12">
       {/* Page Header */}
-      <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+      <div className="space-y-0.5">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary font-heading">
           Analytics & Progress
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-[13px] text-muted-foreground font-semibold leading-relaxed">
           Understand your mindful study habits and focus logs
         </p>
       </div>
@@ -113,27 +113,32 @@ export default async function AnalyticsPage() {
           value={formatMinutes(totalFocusMinutes)}
           icon={Hourglass}
           subtext="Cumulative learning focus"
+          bgClass="bg-primary-fixed/25"
+          iconColorClass="text-primary bg-primary-fixed-dim/40"
         />
         <StatCard
           title="Daily Average"
           value={`${dailyAverageMinutes}m`}
           icon={Calendar}
           subtext="Focus minutes per study day"
-          iconColorClass="text-primary bg-primary/10"
+          bgClass="bg-secondary-fixed/25"
+          iconColorClass="text-secondary bg-secondary-fixed-dim/40"
         />
         <StatCard
           title="Focus Sessions"
           value={sessionCount}
           icon={Brain}
           subtext="Mindful timers completed"
-          iconColorClass="text-primary bg-primary/10"
+          bgClass="bg-tertiary-fixed/25"
+          iconColorClass="text-tertiary bg-tertiary-fixed-dim/40"
         />
         <StatCard
           title="Hydration Logs"
           value={`${waterRemindersCount} logs`}
           icon={Droplet}
           subtext="Today's water checkpoints"
-          iconColorClass="text-secondary bg-secondary/10"
+          bgClass="bg-surface-container-high"
+          iconColorClass="text-muted-foreground bg-surface-container-highest"
         />
       </div>
 
@@ -144,62 +149,62 @@ export default async function AnalyticsPage() {
         </div>
 
         {/* Health Reminders Summary Widget */}
-        <div className="rounded-2xl border border-border bg-card p-6 shadow-soft space-y-6">
-          <div className="space-y-1">
-            <h3 className="font-semibold text-base text-foreground tracking-tight flex items-center">
+        <div className="glass-card p-6 rounded-2xl shadow-soft border border-outline-variant/15 space-y-6">
+          <div className="space-y-0.5">
+            <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center font-heading">
               <Heart className="mr-1.5 h-4 w-4 text-primary animate-pulse" />
               Mindful Habits Log
             </h3>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-[11px] text-muted-foreground font-semibold">
               Total actions completed during study sessions
             </p>
           </div>
 
           <div className="space-y-4">
             {/* Eye Exercise card */}
-            <div className="flex items-center justify-between p-3 rounded-xl border border-border/60 bg-muted/20">
+            <div className="flex items-center justify-between p-3.5 rounded-xl border border-outline-variant/15 bg-surface-container-low">
               <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <div className="h-8 w-8 rounded-lg bg-primary-container/30 text-primary flex items-center justify-center shadow-sm">
                   <Eye className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-foreground">Eye Exercises</h4>
-                  <p className="text-[10px] text-muted-foreground">20-20-20 screen relief</p>
+                  <h4 className="text-xs font-bold text-foreground font-heading">Eye Exercises</h4>
+                  <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">20-20-20 screen relief</p>
                 </div>
               </div>
-              <span className="text-sm font-bold text-foreground bg-card border border-border px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-primary bg-primary-container/40 border border-outline-variant/20 px-2.5 py-0.5 rounded-full font-heading">
                 {eyeExercisesCount}
               </span>
             </div>
 
             {/* Breaks Taken card */}
-            <div className="flex items-center justify-between p-3 rounded-xl border border-border/60 bg-muted/20">
+            <div className="flex items-center justify-between p-3.5 rounded-xl border border-outline-variant/15 bg-surface-container-low">
               <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                <div className="h-8 w-8 rounded-lg bg-primary-container/30 text-primary flex items-center justify-center shadow-sm">
                   <Smile className="h-4.5 w-4.5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-foreground">Mindful Breaks</h4>
-                  <p className="text-[10px] text-muted-foreground">Breathing & stretching</p>
+                  <h4 className="text-xs font-bold text-foreground font-heading">Mindful Breaks</h4>
+                  <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">Breathing & stretching</p>
                 </div>
               </div>
-              <span className="text-sm font-bold text-foreground bg-card border border-border px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-primary bg-primary-container/40 border border-outline-variant/20 px-2.5 py-0.5 rounded-full font-heading">
                 {breaksCount}
               </span>
             </div>
 
             {/* Water intakes card */}
-            <div className="flex items-center justify-between p-3 rounded-xl border border-border/60 bg-muted/20">
+            <div className="flex items-center justify-between p-3.5 rounded-xl border border-outline-variant/15 bg-surface-container-low">
               <div className="flex items-center space-x-3">
-                <div className="h-8 w-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                <div className="h-8 w-8 rounded-lg bg-secondary-container/30 text-secondary flex items-center justify-center shadow-sm">
                   <Droplet className="h-4.5 w-4.5 fill-current" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-semibold text-foreground">Water Glasses</h4>
-                  <p className="text-[10px] text-muted-foreground">+250ml hydration logs</p>
+                  <h4 className="text-xs font-bold text-foreground font-heading">Water Glasses</h4>
+                  <p className="text-[10px] text-muted-foreground font-semibold leading-relaxed">+250ml hydration logs</p>
                 </div>
               </div>
-              <span className="text-sm font-bold text-foreground bg-card border border-border px-2.5 py-0.5 rounded-full">
+              <span className="text-xs font-bold text-secondary bg-secondary-container/45 border border-outline-variant/20 px-2.5 py-0.5 rounded-full font-heading">
                 {waterRemindersCount}
               </span>
             </div>
@@ -208,35 +213,35 @@ export default async function AnalyticsPage() {
       </div>
 
       {/* Recent Sessions Table */}
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-soft space-y-4">
-        <div className="space-y-1">
-          <h3 className="font-semibold text-base text-foreground tracking-tight flex items-center">
+      <div className="glass-card p-6 rounded-2xl shadow-soft border border-outline-variant/15 space-y-4">
+        <div className="space-y-0.5">
+          <h3 className="font-bold text-[14px] text-primary tracking-tight flex items-center font-heading">
             <Zap className="mr-1.5 h-4 w-4 text-primary" />
             Recent Sessions
           </h3>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[11px] text-muted-foreground font-semibold">
             Your latest 5 study session durations
           </p>
         </div>
 
         {recentSessions.length === 0 ? (
-          <div className="text-center py-8 text-xs text-muted-foreground border border-dashed border-border rounded-xl">
+          <div className="text-center py-10 text-xs font-semibold text-muted-foreground border border-dashed border-outline-variant/30 rounded-xl bg-surface-container-low">
             No study sessions logged yet. Head to the Study Room to start!
           </div>
         ) : (
-          <div className="overflow-hidden border border-border rounded-xl">
+          <div className="overflow-hidden border border-outline-variant/15 rounded-xl">
             <table className="w-full text-left text-xs border-collapse">
               <thead>
-                <tr className="bg-muted/30 border-b border-border/80 text-muted-foreground font-semibold">
+                <tr className="bg-surface-container/60 border-b border-outline-variant/20 text-xs font-bold text-primary">
                   <th className="p-3.5">Started At</th>
                   <th className="p-3.5">Study Focus</th>
                   <th className="p-3.5 text-center">Duration</th>
                   <th className="p-3.5 text-right">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/50">
+              <tbody className="divide-y divide-outline-variant/15 font-semibold">
                 {recentSessions.map((s) => (
-                  <tr key={s.id} className="hover:bg-muted/10 transition-colors">
+                  <tr key={s.id} className="hover:bg-surface-container-high/30 transition-colors">
                     <td className="p-3.5 text-muted-foreground">
                       {s.startedAt.toLocaleDateString("en-US", {
                         month: "short",
@@ -245,21 +250,21 @@ export default async function AnalyticsPage() {
                         minute: "2-digit",
                       })}
                     </td>
-                    <td className="p-3.5 font-medium text-foreground">
+                    <td className="p-3.5 font-bold text-foreground font-heading">
                       {s.video ? (
                         <span className="flex items-center gap-1.5 line-clamp-1">
-                          <Video className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
+                          <Video className="h-3.5 w-3.5 text-primary shrink-0" />
                           {s.video.title}
                         </span>
                       ) : (
                         "Standalone Pomodoro Study"
                       )}
                     </td>
-                    <td className="p-3.5 text-center font-semibold text-muted-foreground">
+                    <td className="p-3.5 text-center text-muted-foreground">
                       {Math.round(s.duration / 60)} mins
                     </td>
                     <td className="p-3.5 text-right">
-                      <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
+                      <span className="inline-flex items-center rounded-full bg-primary-container/40 border border-outline-variant/20 px-2.5 py-0.5 text-[10px] font-bold text-primary font-heading">
                         Completed
                       </span>
                     </td>

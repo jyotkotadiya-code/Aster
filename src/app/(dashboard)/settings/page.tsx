@@ -14,13 +14,13 @@ export default async function SettingsPage() {
   }
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-8 animate-fade-in pb-12">
       {/* Header */}
-      <div>
-        <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+      <div className="space-y-0.5">
+        <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary font-heading">
           Settings & Goals
         </h2>
-        <p className="text-sm text-muted-foreground">
+        <p className="text-[13px] text-muted-foreground font-semibold leading-relaxed">
           Customize your study targets, reminders, and theme settings
         </p>
       </div>

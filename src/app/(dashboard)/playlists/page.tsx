@@ -45,14 +45,14 @@ export default async function PlaylistsPage() {
   })
 
   return (
-    <div className="space-y-10 animate-fade-in">
+    <div className="space-y-10 animate-fade-in pb-12">
       {/* Section 1: Page Header */}
       <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground">
+        <div className="space-y-0.5">
+          <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-primary font-heading">
             Study Playlists
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-[13px] text-muted-foreground font-semibold leading-relaxed">
             Manage your distraction-free study sources
           </p>
         </div>
@@ -61,18 +61,18 @@ export default async function PlaylistsPage() {
 
       {/* Section 2: Personal Playlists */}
       <div className="space-y-4">
-        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+        <h3 className="text-xs font-bold text-primary uppercase tracking-widest font-heading px-1">
           My Playlists ({playlists.length})
         </h3>
         
         {playlists.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center max-w-xl mx-auto space-y-4 shadow-soft">
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary mx-auto">
+          <div className="glass-card p-12 text-center max-w-xl mx-auto space-y-4 shadow-soft border border-outline-variant/30 rounded-2xl bg-surface-container-low">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-container/30 text-primary mx-auto shadow-sm">
               <FolderOpen className="h-6 w-6" />
             </div>
-            <div className="space-y-1.5">
-              <h3 className="text-lg font-medium text-foreground">No playlists yet</h3>
-              <p className="text-sm text-muted-foreground max-w-sm mx-auto">
+            <div className="space-y-1">
+              <h3 className="text-base font-bold text-primary font-heading">No playlists yet</h3>
+              <p className="text-xs text-muted-foreground font-semibold max-w-sm mx-auto leading-relaxed">
                 Create a custom playlist to start adding and playing YouTube educational videos.
               </p>
             </div>
@@ -86,32 +86,32 @@ export default async function PlaylistsPage() {
               <Link
                 key={playlist.id}
                 href={`/playlists/${playlist.id}`}
-                className="group block rounded-2xl border border-border bg-card p-5 shadow-soft hover:shadow-medium hover:scale-[1.01] transition-all duration-200 relative overflow-hidden"
+                className="group block rounded-xl border border-outline-variant/15 bg-primary-fixed/20 p-5 shadow-soft hover-lift relative overflow-hidden transition-all duration-300"
               >
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary/30 group-hover:bg-primary transition-colors" />
+                <div className="absolute left-0 top-0 bottom-0 w-1 bg-primary/20 group-hover:bg-primary transition-colors" />
 
                 <div className="flex items-start justify-between">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-container/40 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 shadow-sm">
                     <PlaySquare className="h-5 w-5" />
                   </div>
                   <DeletePlaylistButton id={playlist.id} title={playlist.title} />
                 </div>
 
                 <div className="mt-4 space-y-1">
-                  <h3 className="font-semibold text-base text-foreground tracking-tight group-hover:text-primary transition-colors">
+                  <h3 className="font-bold text-[15px] text-primary tracking-tight group-hover:opacity-80 transition-opacity font-heading">
                     {playlist.title}
                   </h3>
-                  <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem]">
+                  <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem] font-semibold leading-relaxed">
                     {playlist.description ?? "No description provided."}
                   </p>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground font-medium">
+                <div className="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between text-[11px] text-muted-foreground font-bold font-heading">
                   <span className="flex items-center">
-                    <Video className="mr-1 h-3.5 w-3.5" />
+                    <Video className="mr-1 h-3.5 w-3.5 text-primary" />
                     {playlist._count.videos} {playlist._count.videos === 1 ? "video" : "videos"}
                   </span>
-                  <span className="group-hover:text-primary group-hover:translate-x-0.5 transition-all">
+                  <span className="group-hover:translate-x-0.5 transition-all text-primary">
                     Open playlist &rarr;
                   </span>
                 </div>
@@ -123,9 +123,9 @@ export default async function PlaylistsPage() {
 
       {/* Section 3: Playlists Shared with Me */}
       {sharedPlaylists.length > 0 && (
-        <div className="space-y-4 pt-4 border-t border-border/60">
-          <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider flex items-center">
-            <Users className="mr-1.5 h-3.5 w-3.5 text-primary" />
+        <div className="space-y-4 pt-6 border-t border-outline-variant/30">
+          <h3 className="text-xs font-bold text-secondary uppercase tracking-widest font-heading px-1 flex items-center">
+            <Users className="mr-1.5 h-3.5 w-3.5 text-secondary" />
             Shared with Me ({sharedPlaylists.length})
           </h3>
           
@@ -136,35 +136,35 @@ export default async function PlaylistsPage() {
                 <Link
                   key={sp.id}
                   href={`/playlists/${playlist.id}`}
-                  className="group block rounded-2xl border border-border bg-card p-5 shadow-soft hover:shadow-medium hover:scale-[1.01] transition-all duration-200 relative overflow-hidden"
+                  className="group block rounded-xl border border-outline-variant/15 bg-secondary-fixed/20 p-5 shadow-soft hover-lift relative overflow-hidden transition-all duration-300"
                 >
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary/30 group-hover:bg-secondary transition-colors" />
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-secondary/20 group-hover:bg-secondary transition-colors" />
 
                   <div className="flex items-start justify-between">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary/10 text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-container/40 text-secondary group-hover:bg-secondary group-hover:text-secondary-foreground transition-all duration-300 shadow-sm">
                       <PlaySquare className="h-5 w-5" />
                     </div>
                     {/* Creators Tag */}
-                    <span className="text-[10px] font-bold text-secondary bg-secondary/10 border border-secondary/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[9px] font-bold text-secondary bg-secondary-container/45 border border-outline-variant/20 px-2.5 py-0.5 rounded-full font-heading">
                       By {playlist.creator.name}
                     </span>
                   </div>
 
                   <div className="mt-4 space-y-1">
-                    <h3 className="font-semibold text-base text-foreground tracking-tight group-hover:text-secondary transition-colors">
+                    <h3 className="font-bold text-[15px] text-secondary tracking-tight group-hover:opacity-80 transition-opacity font-heading">
                       {playlist.title}
                     </h3>
-                    <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem]">
+                    <p className="text-xs text-muted-foreground line-clamp-2 min-h-[2rem] font-semibold leading-relaxed">
                       {playlist.description ?? "No description provided."}
                     </p>
                   </div>
 
-                  <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between text-xs text-muted-foreground font-medium">
+                  <div className="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-between text-[11px] text-muted-foreground font-bold font-heading">
                     <span className="flex items-center">
-                      <Video className="mr-1 h-3.5 w-3.5" />
+                      <Video className="mr-1 h-3.5 w-3.5 text-secondary" />
                       {playlist._count.videos} {playlist._count.videos === 1 ? "video" : "videos"}
                     </span>
-                    <span className="group-hover:text-secondary group-hover:translate-x-0.5 transition-all">
+                    <span className="group-hover:translate-x-0.5 transition-all text-secondary">
                       Watch playlist &rarr;
                     </span>
                   </div>

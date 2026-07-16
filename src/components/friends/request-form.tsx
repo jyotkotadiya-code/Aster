@@ -26,28 +26,28 @@ export function SendFriendRequestForm() {
     <form
       id="friend-request-form"
       action={formAction}
-      className="flex flex-col sm:flex-row gap-2 max-w-md"
+      className="flex flex-col sm:flex-row gap-3 max-w-md"
     >
       <Input
         name="emailOrUsername"
         placeholder="Enter friend's email or username"
         required
         disabled={isPending}
-        className="h-10 border-border bg-card focus-visible:ring-primary focus-visible:border-primary flex-1"
+        className="h-11 border-outline-variant/30 bg-surface rounded-full focus-visible:ring-primary/20 focus-visible:border-primary text-xs font-semibold px-4 flex-1 shadow-inner"
       />
       <Button
         type="submit"
         disabled={isPending}
-        className="h-10 bg-primary text-primary-foreground hover:bg-primary/95 transition-all rounded-md font-medium cursor-pointer shadow-soft px-4"
+        className="h-11 bg-primary text-primary-foreground hover:opacity-90 transition-all rounded-full font-bold cursor-pointer shadow-sm px-6 text-xs active:scale-95"
       >
         {isPending ? (
           <>
-            <Loader2 className="mr-1.5 h-4 w-4 animate-spin" />
+            <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />
             Sending...
           </>
         ) : (
           <>
-            <UserPlus className="mr-1.5 h-4 w-4" />
+            <UserPlus className="mr-1.5 h-3.5 w-3.5" />
             Send Request
           </>
         )}
